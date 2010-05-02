@@ -239,6 +239,11 @@ abstract class Query implements QueryPlaceholderInterface {
    */
   protected $nextPlaceholder = 0;
 
+  /**
+   * Query comments.
+   */
+  protected $comments = array();
+
   public function __construct(DatabaseConnection $connection, $options) {
     $this->connection = $connection;
     $this->queryOptions = $options;
@@ -261,6 +266,23 @@ abstract class Query implements QueryPlaceholderInterface {
 
   public function nextPlaceholder() {
     return $this->nextPlaceholder++;
+  }
+
+  /**
+   * Add a comment to the query. This can help users debug.
+   */
+  public function addComment($comment) {
+    $this->comments[] = $comment;
+  }
+
+  /**
+   * Returns the comments array for the query.
+   *
+   * @return
+   *   An array of strings.
+   */
+  public function &getComments() {
+    return $this->comments;
   }
 }
 
